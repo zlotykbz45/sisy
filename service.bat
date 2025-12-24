@@ -1,5 +1,5 @@
 @echo off
-set "LOCAL_VERSION=1.8.0"
+set "LOCAL_VERSION=1.0.0"
 
 :: External commands
 if "%~1"=="status_zapret" (
@@ -535,4 +535,5 @@ exit /b
 
 :PrintYellow
 powershell -Command "Write-Host \"%~1\" -ForegroundColor Yellow"
+
 exit /b
