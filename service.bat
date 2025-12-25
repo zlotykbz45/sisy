@@ -1,5 +1,6 @@
 @echo off
-set "LOCAL_VERSION=1.0.0"
+set "LOCAL_VERSION=1.0.2"
+
 
 :: External commands
 if "%~1"=="status_zapret" (
@@ -27,6 +28,8 @@ if "%1"=="admin" (
 )
 
 
+
+
 :: MENU ================================
 setlocal EnableDelayedExpansion
 :menu
@@ -45,6 +48,7 @@ echo .
 echo 6. Switch Game Filter (%GameFilterStatus%) - lol zachem ono nado
 echo 7. Switch ipset (%IPsetStatus%)
 echo 0. Exit
+
 set /p menu_choice=Enter choice (0-8): 
 
 if "%menu_choice%"=="1" goto service_install
@@ -231,9 +235,9 @@ chcp 437 > nul
 cls
 
 :: Set current version and URLs
-set "GITHUB_VERSION_URL=https://raw.githubusercontent.com/Flowseal/zapret-discord-youtube/main/.service/version.txt"
-set "GITHUB_RELEASE_URL=https://github.com/Flowseal/zapret-discord-youtube/releases/tag/"
-set "GITHUB_DOWNLOAD_URL=https://github.com/Flowseal/zapret-discord-youtube/releases/latest/download/zapret-discord-youtube-"
+set "GITHUB_VERSION_URL=https://raw.githubusercontent.com/zlotykbz45/sisy/main/.service/version.txt"
+set "GITHUB_RELEASE_URL=https://github.com/zlotykbz45/sisy/releases/tag/"
+set "GITHUB_DOWNLOAD_URL=https://github.com/zlotykbz45/sisy/releases/latest/download/booster-"
 
 :: Get the latest version from GitHub
 for /f "delims=" %%A in ('powershell -command "(Invoke-WebRequest -Uri \"%GITHUB_VERSION_URL%\" -Headers @{\"Cache-Control\"=\"no-cache\"} -TimeoutSec 5).Content.Trim()" 2^>nul') do set "GITHUB_VERSION=%%A"
@@ -266,7 +270,11 @@ if /i "%CHOICE%"=="y" set "CHOICE=Y"
 if /i "%CHOICE%"=="Y" (
     echo Opening the download page...
     start "" "%GITHUB_DOWNLOAD_URL%%GITHUB_VERSION%.rar"
+    if exist "%~dp0booster.bat" (
+        copy /Y "%~dp0booster.bat" "%~dp0booster_old.bat" >nul
+    )
 )
+
 
 
 if "%1"=="soft" exit /b
@@ -535,5 +543,4 @@ exit /b
 
 :PrintYellow
 powershell -Command "Write-Host \"%~1\" -ForegroundColor Yellow"
-
 exit /b
